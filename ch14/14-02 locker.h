@@ -76,11 +76,11 @@ public:
     // 创建并初始化条件变量
     cond()
     {
-        // 构造函数中一旦出现问题，就应该立即释放已经成功分配了的资源
         if (pthread_mutex_init(&m_mutex, NULL) != 0) {
             throw std::exception();
         }
         if (pthread_cond_init(&m_cond, NULL) != 0) {
+            // 构造函数中一旦出现问题，就应该立即释放已经成功分配了的资源
             pthread_mutex_destroy(&m_mutex);
             throw std::exception();
         }
